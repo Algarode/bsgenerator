@@ -1,12 +1,12 @@
 package litetech.com.bsgenerator;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,10 +21,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
+
         count = 0;
         setArrays();
+
         final Button button = (Button) findViewById(R.id.btnGenerate);
         final TextView textView = (TextView) findViewById(R.id.tvWords);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
                     button.setText("Generate even more!");
                 }
                 if (count == 50) {
+                    button.setText("Yep, keep on going. Generate more please!");
+                }
+                if (count == 100) {
                     Toast.makeText(MainActivity.this, "Jesus.. you're really going at it, huh?", Toast.LENGTH_LONG).show();
                     button.setText("Keep 'em coming! GENERATE!!!");
                 }
@@ -46,9 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
     public String getResult() {
         Random random = new Random();
+
         String s1 = array1.get(random.nextInt(array1.size()));
         String s2 = array2.get(random.nextInt(array2.size()));
         String s3 = array3.get(random.nextInt(array3.size()));
+
         return s1 + " " + s2 + " " + s3;
     }
 
